@@ -1,0 +1,80 @@
+<div class='ym-wrapper' ng-controller="BookingController as booking">
+  
+  <div class="ym-grid form_row">
+    <div class='ym-gbox ym-gl ym-g33'>
+      <label for="fname">First Name</label>
+      <input id="fname" type="text" class="form-control" ng-model="booking.fname" placeholder="First Name"/>
+    </div>
+    <div class="ym-gbox ym-gl ym-g33">
+      <label for="lname">Last Name</label>
+      <input id="lname" type="text" class="form-control" ng-model="booking.lname" placeholder="Last Name"/>
+    </div>
+    <div class="ym-gbox ym-gr ym-g33">
+      <label for="country">Country</label>
+      <input id="country" type="text" class="form-control" ng-model="booking.country" placeholder="Country"/>
+    </div>
+  </div>
+  
+  <div class='ym-grid form_row'>
+    <div class="ym-gbox ym-gl ym-g33">
+      <label for="phoneNumber">Phone Number</label>
+      <input id="phoneNumber" type="text" class="form-control" ng-model="booking.phoneNumber" placeholder="Phone Number"/>
+    </div>
+    <div class="ym-gbox ym-gl ym-g33">
+      <label for="email">Email</label>
+      <input id="email" type="email" class="form-control" ng-model="booking.email" placeholder="Email"/>
+    </div>
+    <div class="ym-gbox ym-gr ym-g33">
+        <label for="type">Campervan Type</label>
+        <select id="type" class="form-control" ng-model="booking.type" placeholder="Campervan Type">
+          <option value="">Campervan Type</option>
+          <option value="Jucy">Jucy</option>
+          <option value="Lucky">Lucky</option>
+          <option value="Escape">Escape</option>
+          <option value="Spaceship">Spaceship</option>
+          <option value="Alpha">Alpha</option>
+          <option value="Britz">Britz</option>
+          <option value="Wicked">Wicked</option>
+          <option value="Happy Camper">Happy Camper</option>
+          <option value="Private Vehicle">Private Vehicle</option>
+        </select>
+      </div>
+    </div>
+
+    <div class='ym-grid form_row' ng-show="booking.isPrivate()">
+      <div class='ym-gbox ym-gl ym-g33'>
+        <label for="make">Make</label>
+        <input id="make" type='text' class='form-control' ng-model='booking.make' placeholder='Make'/>
+      </div>
+      <div class='ym-gbox ym-gl ym-g33'>
+        <label for="model">Model</label>
+        <input id="model" type='text' class='form-control' ng-model='booking.model' placeholder='Model'/>
+      </div>
+    </div>
+
+    <div class='ym-grid form_row'>
+      <div class="ym-gbox ym-gl ym-g33">
+        <label for="numberPeople"># of People</label>
+        <select id="numberPeople" class="form-control" ng-model="booking.numberPeople">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div class="ym-gbox ym-gl ym-g33">
+        <label for="numberNights"># of Nights</label>
+        <input id="numberNights" type="number" class="form-control" ng-model="booking.numberNights" placeholder="Number of Nights"/>
+      </div>
+      <div class="ym-gbox ym-gr ym-g33">
+        <label for="checkInDate">Check-In Date</label>
+        <input id="checkInDate" type='text' class='form-control' ng-model="booking.checkInDate" placeholder="Check-in Date"/>
+      </div>
+    </div>
+  
+  <div>
+    <span>Type: {{booking.type}}</span>
+  </div>
+
+</div>

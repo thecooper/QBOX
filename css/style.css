@@ -1,0 +1,304 @@
+.ym-wrapper {
+	width:66%;
+	margin:0 auto;
+}
+
+.left-align {
+	text-align: left;
+}
+
+.unpaid {
+	color:red !important;
+}boo
+
+.paid {
+	color:green !important;
+}
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+/*HEADER/DIV CSS*/
+
+header nav {
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:50px;
+	margin:0;
+	background:#CCCCCC;
+	z-index: 50;
+}
+
+header nav ul {
+	list-style:none;
+	margin:0;
+	padding:0;
+	height:100%;
+	z-index:51;
+}
+
+header nav li {
+	display:inline-block;
+	height:100%;
+	font-size:2em;
+}
+
+header nav li a {
+	display:block;
+	height:100%;
+	margin:0 10px;
+	padding-top:10px;
+	color:#555;	
+}
+
+/*Main content CSS*/
+
+.snapshot_alert.alert-danger,.snapshot_alert.alert-success {
+	position:fixed;
+	top:60px;
+	left:0px;
+	right:0px;
+	font-size:1.5em;
+	text-align: center;
+}
+
+.new_booking_wrapper {
+	position:fixed;
+	top:10px;
+	right:20px;
+	z-index:51;
+}
+
+.background_shadow {
+	background:rgba(0,0,0,0.7);
+	position:fixed;
+	width:100%;
+	height:100%;
+	top:0px;
+	left:0px;
+	z-index:99;
+}
+
+.booking_view_wrapper {
+	width:800px;
+	position:fixed;
+	left:50%;
+	margin-left:-400px;
+	top:20px;
+	bottom:20px;
+	background:white;
+	box-shadow:3px 3px 5px black;
+	padding:10px;
+	color:#777;
+	z-index:100;
+	overflow: scroll;
+}
+
+.booking_view_title, .booking_spot_number {
+	font-size:2em;
+}
+
+.booking_view_exit {
+	position:absolute;
+	top:5px;
+	right:5px;
+}
+
+.booking_view_row {
+	margin:10px 0px;
+}
+
+.booking_dollar_wrapper {
+	width:80%;
+	margin:0 auto;
+	text-align: center;
+}
+
+.booking_dollar_per_night,.booking_dollar_total,.booking_dollar_collected,.booking_dollar_owed {
+	font-size:3em;
+}
+
+.booking_dollar_total {
+	color:blue;
+}
+.booking_dollar_collected {
+	color:green;
+}
+.booking_dollar_owed {
+	color:grey;
+}
+
+.booking_payment_history .glyphicon {
+	cursor:pointer;
+}
+
+.booking_payment_history .form-control {
+	height:20px;
+	padding:0px;
+}
+
+.booking_paid_wrapper {
+	text-align: center;
+	font-size:2em;
+}
+
+.booking_options {
+	text-align: right;
+}
+
+.booking_dollar_type {
+	color:grey;
+	font-size:1em;
+}
+
+.booking_view_row textarea {
+	min-height:150px;
+}
+
+.booking_payment_type {
+	font-size:1.5em;
+	margin-top: 10px;
+}
+
+.booking_amount_wrapper {
+	width:50%;
+	margin:0 auto;
+}
+
+.booking_view_buttons {
+	text-align: center;
+}
+
+.view_date {
+	border:none;
+	outline:none;
+	color:blue;
+	text-align: center;
+	text-decoration: underline;
+	cursor:pointer;
+	font-size: 2.5em;
+}	
+
+.snapshot_wrapper {
+	padding-top:20px;
+}
+
+.snapshot_search_wrapper {
+	text-align: center;
+	width:300px;
+	margin:20px auto;
+}
+
+.snapshot_search_wrapper input {
+	display:inline;
+	width:300px !important;
+}
+
+.snapshot_searchbar_wrapper {
+	position:relative;
+}
+
+.snapshot_searchbar_wrapper .close {
+	position:absolute;
+	right:10px;
+	top:7px;
+}
+
+/*.snapshot_searchbar_wrapper .glyphicon-remove:hover {
+	color:black;
+}*/
+
+.snapshot_date_wrapper,.snapshot_wdate_wrapper {
+	text-align: center;
+}
+
+.snapshot_date_selector {
+	font-size:2.5em;
+	margin:0 20px;
+}
+
+.snapshot_daily_totals {
+	width:50%;
+	margin:20px auto;
+}
+
+.snapshot_daily_totals>div {
+	text-align: center;
+}
+
+.total_box {
+	margin:0 auto;
+	display:inline-block;
+}
+
+.total_icon {
+	display:inline-block;
+	width:30px;
+	height:30px;
+	border-radius:7px;
+}
+
+.snapshot_total_people .total_icon {
+	background-color:red;
+}
+.snapshot_total_unpowered .total_icon {
+	background-color:blue;
+}
+.snapshot_total_powered .total_icon {
+	background-color:green;
+}
+.snapshot_total_tent .total_icon {
+	background-color:orange;
+}
+
+.total_text {
+	display:inline;
+	float:right;
+	margin-left:10px;
+}
+
+.total_type {
+	font-size:1.5em;
+	text-align: left;
+	text-transform: uppercase;
+	color:grey;
+}
+
+.total_numbers {
+	font-size:2.5em;
+	text-align: left; 
+}
+
+.divider {
+	margin-bottom:1px solid black;
+	min-height:1px;
+	height:1px;
+	width:100%;
+}
+
+.arrivals_header, .in_house_header, .weekly_view_header {
+	font-size:3em;
+	text-align: center;
+	margin-bottom:20px;
+}
+
+.arrivals_table, .in_house_table {
+	width:75%;
+	margin:0 auto;
+}
+
+.snapshot_inhouse_search {
+	width:200px !important;
+	margin:auto;
+}
+
+.weekly_view_wrapper {
+	margin-top:40px !important;
+}
+
+.weekly_view_wrapper table {
+	font-size:1.5em;
+}
