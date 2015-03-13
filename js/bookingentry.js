@@ -504,7 +504,6 @@ app.controller('SnapshotController', ['$scope', '$http', '$timeout', function($s
     };
 
     Snapshot.clearSearch = function() {
-        console.log("In clearSearch!");
         Snapshot.searchText = "";
         Snapshot.searchResults = [];
     };
@@ -704,7 +703,6 @@ app.controller('SnapshotController', ['$scope', '$http', '$timeout', function($s
         //set preferredSpot either to the spot specified in the interface, to the last value in the DatesAlreadyBooked array (so that the person doesn't have to move)
         //or to null, meaning that the customer is starting a new booking process.
         var preferredSpot = BookingForm.CurrentBooking.preferredSpot == 0 ? (DatesAlreadyBooked.length > 0 ? DatesAlreadyBooked[DatesAlreadyBooked.length - 1].number : null) : BookingForm.CurrentBooking.preferredSpot;
-
         var filledArr = fillSpots(DatesNotYetBooked, preferredSpot);
         if (filledArr === false) {
             return false;
@@ -713,7 +711,7 @@ app.controller('SnapshotController', ['$scope', '$http', '$timeout', function($s
         }
     };
     //Cycle through each spot in the first day. If any number matches the full length of the range, return an array of
-    function matchRange(availableSpots) {
+    function matchRange(availableSpots,preferredSpot) {
         var matchedArr = [];
         var range = availableSpots.length;
         var Spot = function(number, occupiedDate) {
@@ -725,6 +723,21 @@ app.controller('SnapshotController', ['$scope', '$http', '$timeout', function($s
 
         var startDateTS = availableSpots[0].day;
         var matched = false;
+        if(preferredSpot) {
+            var canPrefer = availableSpots
+                    .every(function(day){
+                        return day.spots.some(function(spot){
+                            return preferredSpot == spot.spotId;
+                        })
+                    });
+            if (canPrefer){
+                for (var j=0;j<range;j++){
+                    matchedArr[j] = new Spot(preferredSpot, formatDate(startDateTS + (j * timestampDay)));
+                }
+                return matchedArr;
+            }
+        }
+
         availableSpots[0].spots.forEach(function(availableSpot) {
             if (!matched) {
                 matched = availableSpots
@@ -754,7 +767,6 @@ app.controller('SnapshotController', ['$scope', '$http', '$timeout', function($s
 
         var daySpan = spots.length;
 
-
         //TODO: put IF statement to check if same booking ID (IE changing check-out dates)
 
         var currentSpot = 1,
@@ -763,9 +775,9 @@ app.controller('SnapshotController', ['$scope', '$http', '$timeout', function($s
         var matchedArr = [];
 
         //See if preferredSpot can be filled before using first available
-        if (preferredSpot != null) {
-            matchedArr = matchRange(spots, daySpan, preferredSpot);
-            if (matchedArr !== false) {
+        if (preferredSpot) {
+            matchedArr = matchRange(spots, preferredSpot);
+            if (matchedArr) {
                 daySpan -= matchedArr.length;
                 b_spots = matchedArr;
             }
@@ -788,8 +800,7 @@ app.controller('SnapshotController', ['$scope', '$http', '$timeout', function($s
             }
             daysLeftToProcess = 0;
         }
-
-        if (b_spots.length == daySpan) {
+        if (b_spots.length == spots.length) {
             return b_spots;
         } else {
             return false;
@@ -797,6 +808,7 @@ app.controller('SnapshotController', ['$scope', '$http', '$timeout', function($s
     };
 
     $scope.getSpotAvailability = function() {
+        //Mark start date as first date that doesn't have any spots already allocated.
         var startDate = formatDate(Date.parse(BookingForm.CurrentBooking.checkInDate) + (BookingForm.CurrentBooking.spots.length * timestampDay));
         $http.get('/qbox/service/webservice.php/availability?startDate=' + startDate + '&endDate=' + BookingForm.CurrentBooking.checkOutDate)
             .success(function(data, status, headers, config) {
