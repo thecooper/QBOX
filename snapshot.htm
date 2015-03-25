@@ -1,4 +1,4 @@
-<div ng-controller="SnapshotController as Snapshot" class='snapshot_wrapper'>
+<div class='snapshot_wrapper'>
 	<div class="alert alert-success snapshot_alert ym-wrapper" role="alert" ng-show="Snapshot.ShowSuccess">
 		{{Snapshot.SuccessMessage}}
 	</div>
@@ -6,216 +6,11 @@
 		{{Snapshot.ErrorMessage}}
 	</div>
 	<div class='new_booking_wrapper'>
-		<button class='btn btn-success btn-large' ng-click='Snapshot.createBooking()'>New Booking</button>
-		<button class='btn btn-large' ng-click='Snapshot.createReservation()'>New Reservation</button>
+		<button class='btn btn-success btn-large' ng-click='newBooking()'>New Booking</button>
+		<button class='btn btn-large' ng-click='newReservation()'>New Reservation</button>
 	</div>
-	
-	<div class='background_shadow' ng-click='toggleBookingForm()' ng-show='showBookingForm'></div>
-	
-	<div class='booking_view_wrapper' ng-controller='BookingController as Form' ng-show='showBookingForm' ng-init="BookingForm.CurrentBooking.initBooking()">
-		<div class='ym-grid'>
-			<div class='ym-gl ym-g25'>
-				<div class='booking_view_title'>{{BookingForm.header}}</div>
-			</div>
-			<div class='ym-gl ym-g25'>
-				<div class='ym-gl ym-g50 booking_spot_number' ng-show='BookingForm.CurrentBooking.spotNumber != null'>
-					<span>Spot # {{BookingForm.CurrentBooking.spotNumber}}</span>
-				</div>
-				<div class='ym-gr ym-g50'>
-					<div class='booking_options'>
-						<div class="btn-group">
-						  <a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-						    <i class='glyphicon glyphicon-cog'></i>
-						    <!-- <span class="caret"></span> -->
-						  </a>
-						  <ul class="dropdown-menu">
-						    <li><a href='javascript:;' ng-click='Form.toggleSpot()'>Change Spot</a></li>
-						    <li><a href='javascript:;'>Cancel Booking</a></li>
-						  </ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class='booking_view_exit'>
-			<button class="close" ng-click='toggleBookingForm()'>&times;</button>
-		</div>
 
-		<div class='ym-grid'>
-			<div class="ym-gl ym-g50">
-				<section class='ym-grid booking_view_row'>
-					<div class='ym-gl ym-g50 ym-gbox'>
-						<label for='booking_type'>Booking Type</label>
-						<input type='text' ng-model="BookingForm.CurrentBooking.bookingType" class='form-control' id='booking_type' disabled/>
-					</div>
-					<div class='ym-gr ym-g50 ym-gbox'>
-						<label for='spot_type'>Spot Type</label>
-						<select tabindex="2" ng-model="BookingForm.CurrentBooking.spotType" ng-change="BookingForm.CurrentBooking.calculateDollarAmounts()" id='spot_type' class='form-control'>
-							<option>Powered</option>
-							<option>Unpowered</option>
-							<option>Tent</option>
-						</select>
-					</div>
-				</section>
-				<section class='ym-grid booking_view_row'>
-					<div class='ym-gl ym-g50 ym-gbox'>
-						<label for='booking_name'>Name</label>
-						<input type='text' tabindex="1" ng-model="BookingForm.CurrentBooking.name" id='booking_name' class='form-control'/>
-					</div>
-					<div class='ym-gr ym-g50 ym-gbox' ng-hide='BookingForm.CurrentBooking.bookingType == "Reservation" || BookingForm.CurrentBooking.bookingType == "New Reservation"'>
-						<label for='spot_country'>Country</label>
-						<select tabindex="3" id='spot_country' ng-model="BookingForm.CurrentBooking.country" class='form-control'>
-							<option>Afghanistan</option><option>Albania</option><option>Algeria</option><option>Andorra</option><option>Angola</option><option>Antigua & Deps</option><option>Argentina</option><option>Armenia</option><option>Australia</option><option>Austria</option><option>Azerbaijan</option><option>Bahamas</option><option>Bahrain</option><option>Bangladesh</option><option>Barbados</option><option>Belarus</option><option>Belgium</option><option>Belize</option><option>Benin</option><option>Bhutan</option><option>Bolivia</option><option>Bosnia Herzegovina</option><option>Botswana</option><option>Brazil</option><option>Brunei</option><option>Bulgaria</option><option>Burkina</option><option>Burma</option><option>Burundi</option><option>Cambodia</option><option>Cameroon</option><option>Canada</option><option>Cape Verde</option><option>Central African Rep</option><option>Chad</option><option>Chile</option><option>People's Republic of China</option><option>Republic of China</option><option>Colombia</option><option>Comoros</option><option>Democratic Republic of the Congo</option><option>Republic of the Congo</option><option>Costa Rica</option><option>Croatia</option><option>Cuba</option><option>Cyprus</option><option>Czech Republic</option><option>Danzig</option><option>Denmark</option><option>Djibouti</option><option>Dominica</option><option>Dominican Republic</option><option>East Timor</option><option>Ecuador</option><option>Egypt</option><option>El Salvador</option><option>Equatorial Guinea</option><option>Eritrea</option><option>Estonia</option><option>Ethiopia</option><option>Fiji</option><option>Finland</option><option>France</option><option>Gabon</option><option>Gaza Strip</option><option>The Gambia</option><option>Georgia</option><option>Germany</option><option>Ghana</option><option>Greece</option><option>Grenada</option><option>Guatemala</option><option>Guinea</option><option>Guinea-Bissau</option><option>Guyana</option><option>Haiti</option><option>Holy Roman Empire</option><option>Honduras</option><option>Hungary</option><option>Iceland</option><option>India</option><option>Indonesia</option><option>Iran</option><option>Iraq</option><option>Republic of Ireland</option><option>Israel</option><option>Italy</option><option>Ivory Coast</option><option>Jamaica</option><option>Japan</option><option>Jonathanland</option><option>Jordan</option><option>Kazakhstan</option><option>Kenya</option><option>Kiribati</option><option>North Korea</option><option>South Korea</option><option>Kosovo</option><option>Kuwait</option><option>Kyrgyzstan</option><option>Laos</option><option>Latvia</option><option>Lebanon</option><option>Lesotho</option><option>Liberia</option><option>Libya</option><option>Liechtenstein</option><option>Lithuania</option><option>Luxembourg</option><option>Macedonia</option><option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Maldives</option><option>Mali</option><option>Malta</option><option>Marshall Islands</option><option>Mauritania</option><option>Mauritius</option><option>Mexico</option><option>Micronesia</option><option>Moldova</option><option>Monaco</option><option>Mongolia</option><option>Montenegro</option><option>Morocco</option><option>Mount Athos</option><option>Mozambique</option><option>Namibia</option><option>Nauru</option><option>Nepal</option><option>Newfoundland</option><option>Netherlands</option><option>New Zealand</option><option>Nicaragua</option><option>Niger</option><option>Nigeria</option><option>Norway</option><option>Oman</option><option>Ottoman Empire</option><option>Pakistan</option><option>Palau</option><option>Panama</option><option>Papua New Guinea</option><option>Paraguay</option><option>Peru</option><option>Philippines</option><option>Poland</option><option>Portugal</option><option>Prussia</option><option>Qatar</option><option>Romania</option><option>Rome</option><option>Russian Federation</option><option>Rwanda</option><option>St Kitts & Nevis</option><option>St Lucia</option><option>Saint Vincent & the</option><option>Grenadines</option><option>Samoa</option><option>San Marino</option><option>Sao Tome & Principe</option><option>Saudi Arabia</option><option>Senegal</option><option>Serbia</option><option>Seychelles</option><option>Sierra Leone</option><option>Singapore</option><option>Slovakia</option><option>Slovenia</option><option>Solomon Islands</option><option>Somalia</option><option>South Africa</option><option>Spain</option><option>Sri Lanka</option><option>Sudan</option><option>Suriname</option><option>Swaziland</option><option>Sweden</option><option>Switzerland</option><option>Syria</option><option>Tajikistan</option><option>Tanzania</option><option>Thailand</option><option>Togo</option><option>Tonga</option><option>Trinidad & Tobago</option><option>Tunisia</option><option>Turkey</option><option>Turkmenistan</option><option>Tuvalu</option><option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option><option>United Kingdom</option><option>United States of America</option><option>Uruguay</option><option>Uzbekistan</option><option>Vanuatu</option><option>Vatican City</option><option>Venezuela</option><option>Vietnam</option><option>Yemen</option><option>Zambia</option><option>Zimbabwe</option>
-						</select>
-					</div>
-				</section>
-				<section class='booking_view_row'>
-					<div class='ym-grid'>
-						<div class='ym-gl ym-g50'>
-							<div class='ym-gl ym-g50 ym-gbox'>
-								<label for='num_people'># People</label>
-								<input tabindex="4" type='text' id='num_people' ng-change="BookingForm.CurrentBooking.calculateDollarAmounts()" ng-model='BookingForm.CurrentBooking.numberPeople' class='form-control'/>
-							</div>
-							<div class='ym-gr ym-g50 ym-gbox'>
-								<label for='num_nights'># Nights</label>
-								<input tabindex="5" type='text' id='num_nights' ng-change='updateCheckOut()' ng-model='BookingForm.CurrentBooking.numberNights' class='form-control'/>
-							</div>
-						</div>
-						<div class='ym-gr ym-g50'>
-							<div class='ym-gl ym-g50 ym-gbox' ng-show='BookingForm.CurrentBooking.chooseSpot'>
-							<label>
-								<span>Spot #</span>
-								<input tabindex="6" type='text' class='form-control' id='spotPreference' ng-model='BookingForm.CurrentBooking.preferredSpot'/>
-							</label>
-							</div>
-						</div>
-					</div>
-				</section>
-				<!-- CHECKIN/OUT -->
-				<section class='ym-grid booking_view_row'>
-					<div class='ym-gl ym-g40 ym-gbox'>
-						<label for='check_in'>Check In</label>
-						<input type='text' id='check_in' ng-model='BookingForm.CurrentBooking.checkInDate'  ng-change='updateCheckOut()' class='form-control' ng-disabled="!BookingForm.CurrentBooking.isNewBooking()"/>
-					</div>
-					<div class='ym-gl ym-g20 ym-gbox'>
-						<hr/>
-					</div>
-					<div class='ym-gr ym-g40 ym-gbox'>
-						<label for='check_out'>Check Out</label>
-						<input type='text' id='check_out' ng-model='BookingForm.CurrentBooking.checkOutDate'  ng-change='updateNumberNights()' class='form-control'/>
-					</div>
-				</section>
-				<!--VEHICLE/REGO-->
-				<section class='ym-grid booking_view_row' ng-hide='BookingForm.CurrentBooking.spotType == "Tent" || BookingForm.CurrentBooking.bookingType == "Reservation" || BookingForm.CurrentBooking.bookingType == "New Reservation"'>
-					<div class='ym-gl ym-g50 ym-gbox'>
-						<label for='vehicle'>Vehicle</label>
-						<input type='text' id='vehicle' tabindex="7" ng-model="BookingForm.CurrentBooking.type" class='form-control'/>
-					</div>
-					<div class='ym-gr ym-g50 ym-gbox'>
-						<label for='registration'>Registration</label>
-						<input type='text' id='registration' tabindex="8" ng-change='BookingForm.CurrentBooking.regoChange()' ng-model='BookingForm.CurrentBooking.registration' class='form-control'/>
-					</div>
-				</section>
-				<!--PHONE/EMAIL-->
-				<section class='ym-grid booking_view_row'>
-					<div class='ym-gl ym-g50 ym-gbox'>
-						<label for='phone'>Phone</label>
-						<input type='text' id='phone' tabindex="9" ng-model="BookingForm.CurrentBooking.phoneNumber" class='form-control'/>
-					</div>
-					<div class='ym-gr ym-g50 ym-gbox'>
-						<label for='email'>Email</label>
-						<input type='text' id='email' tabindex="10" ng-model="BookingForm.CurrentBooking.email" class='form-control'/>
-					</div>
-				</section>
-			</div>
-			<div class="ym-gr ym-g50">
-				<!--DOLLAR TOTALS-->
-				<section class='booking_dollar_wrapper'>
-					<div class="ym-grid booking_view_row" ng-hide="BookingForm.CurrentBooking.isPaid">
-						<div class='ym-gl ym-g25 ym-gbox' ng-hide="BookingForm.CurrentBooking.isWeekly">
-							<div class='booking_dollar_per_night'>${{BookingForm.CurrentBooking.amountPerNight}}</div>
-							<div class='booking_dollar_type'>Per Nights</div>
-						</div>
-						<div class='ym-gl ym-g25 ym-gbox'>
-							<div class='booking_dollar_total'>${{BookingForm.CurrentBooking.amountTotal}}</div>
-							<div class='booking_dollar_type'>Total Owed</div>
-						</div>
-						<div class='ym-gl ym-g25 ym-gbox'>
-							<div class='booking_dollar_collected' ng-class='{paid:BookingForm.CurrentBooking.isPaid,unpaid:!BookingForm.CurrentBooking.isPaid}'>${{BookingForm.CurrentBooking.amountPaid}}</div>
-							<div class='booking_dollar_type'>Collected</div>
-						</div>
-						<div class='ym-gr ym-g25 ym-gbox' ng-hide="BookingForm.CurrentBooking.isWeekly">
-							<div class='booking_dollar_owed'>${{BookingForm.CurrentBooking.amountOwed}}</div>
-							<div class='booking_dollar_type'>For Tonight</div>
-						</div>
-					</div>
-					<div class='booking_paid_wrapper alert alert-success' ng-show="BookingForm.CurrentBooking.isPaid">Paid!</div>
-					<div class='booking_weekly_wrapper'>
-						<label>
-							<span>Staying for a week</span>
-							<input type='checkbox' class=''  tabindex="11" ng-click='BookingForm.CurrentBooking.toggleWeeklyStay()'/>
-						</label>
-					</div>
-					<div class='booking_payment_history booking_view_row' ng-show="BookingForm.CurrentBooking.payments.length > 0">
-						<table class='table table-condensed table-striped'>
-							<thead>
-								<tr>
-									<td>Payment #</td>
-									<td>Payment Type</td>
-									<td>Payment Amount</td>
-									<td></td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="payment in BookingForm.CurrentBooking.payments | orderBy:'timestamp':true">
-									<td><span>{{payment.sequence}}</span></td>
-									<td><span ng-hide='payment.editing==true'>{{payment.type}}</span><select class="form-control" ng-show='payment.editing==true' ng-model='payment.type'><option>cash</option><option>eftpos</option></td>
-									<td><span>{{payment.amount}}</span></td>
-									<td>
-										<i class='glyphicon glyphicon-pencil' ng-click='payment.editing=true' ng-hide='payment.editing==true'></i>
-										<i class='glyphicon glyphicon-trash' ng-click='BookingForm.CurrentBooking.deletePayment(payment.sequence)' ng-hide='payment.editing==true'></i>
-										<i class='glyphicon glyphicon-ok' ng-click='payment.editing=false;BookingForm.CurrentBooking.calculateDollarAmounts()' ng-show='payment.editing==true'></i>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class='booking_payment_wrapper booking_view_row' ng-hide="BookingForm.CurrentBooking.payLater || BookingForm.CurrentBooking.bookingType == 'New Reservation' || BookingForm.CurrentBooking.bookingType == 'Reservation'">
-						<div class='booking_amount_wrapper'>
-							<input class="form-control" tabindex="12" id="payment_amount" type="text" placeholder="Amount">
-						</div>
-						<div class='booking_payment_type'>
-							<span>Payment Type:</span>
-							<label for="cash">
-								<input type='radio' tabindex="13" name='payment_type' id='cash'/>
-								Cash
-							</label>
-							<label for="eftpos">
-								<input type='radio' name='payment_type' id='eftpos'/>
-								EFTPOS
-							</label>
-						</div>
-						<div class='booking_payment_button booking_payment_row'>
-							<button type='button' tabindex="14" ng-click="AddPayment()" class='btn btn-success btn-large'>Add Payment</button>
-						</div>
-					</div>
-				</section>
-				<!--Divider-->
-				<div class='divider'></div>
-				<!--Notes-->
-				<section class='booking_view_row'>
-					<label for="notes">Notes</label>
-					<textarea id="notes" tabindex="15" ng-model="BookingForm.CurrentBooking.notes" class="form-control"></textarea>
-				</section>
-			</div>
-		</div>
-		<section class='booking_view_row booking_view_buttons'>
-			<button type='button' class='btn btn-success btn-large' ng-click='BookingForm.CurrentBooking.checkIn()' ng-show="BookingForm.CurrentBooking.bookingType == 'Reservation'">Check In</button>
-			<button type='button' class='btn btn-success btn-large' ng-click='createBookingFrom()' ng-show="BookingForm.CurrentBooking.bookingType == 'Booking'">Copy Booking</button>
-			<button type='button' tabindex="16" class='btn btn-primary btn-large' ng-click='BookingForm.CurrentBooking.saveBooking()'>{{BookingForm.saveButtonText}}</button>
-			<button type='button' tabindex="17" class='btn btn-large' ng-click='toggleBookingForm()'>Cancel</button>
-		</section>
-	</div>
+	<booking id="" ng-model="currBooking" ng-show="edit"/>
 
 	<div class='snapshot_search_wrapper'>
 		<div class='snapshot_searchbar_wrapper'>
@@ -251,9 +46,9 @@
 	</div>
 
 	<div class='snapshot_date_wrapper ym-wrapper' ng-init="getConfig();">
-		<button type='button' class='snapshot_date_selector btn' ng-click='Snapshot.previousDay()'>&laquo;</button>
-		<input class='view_date' ng-change="getDailyBookings()" class='current_date snapshot_date_selector' ng-model='Snapshot.ViewDate'>
-		<button class='snapshot_date_selector btn' ng-click='Snapshot.nextDay()'>&raquo;</button>
+		<button type='button' class='snapshot_date_selector btn' ng-click='prevDay()'>&laquo;</button>
+		<input class='view_date' ng-change="getDailyBookings()" class='current_date snapshot_date_selector' ng-model='dailyDate'>
+		<button class='snapshot_date_selector btn' ng-click='nextDay()'>&raquo;</button>
 	</div>
 	<div class='snapshot_daily_totals ym-grid'>
 		<div class='snapshot_total_people ym-gl ym-g50'>
@@ -265,24 +60,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class='snapshot_total_unpowered ym-gl ym-g25'>
-			<div class='total_box'>
-				<div class='total_icon'>&nbsp;</div>
-				<div class='total_text'>
-					<div class="total_numbers">{{Snapshot.Powered}}</div>
-					<div class='total_type'>Powered</div>
-				</div>
-			</div>
-		</div>
-		<div class="snapshot_total_powered ym-gl ym-g25">
-			<div class='total_box'>
-				<div class='total_icon'>&nbsp;</div>
-				<div class='total_text'>
-					<div class="total_numbers">{{Snapshot.Unpowered}}</div>
-					<div class='total_type'>Unpowered</div>
-				</div>
-			</div>
-		</div> -->
 		<div class="snapshot_total_tent ym-gr ym-g50">
 			<div class='total_box'>
 				<div class='total_icon'>&nbsp;</div>
@@ -290,6 +67,18 @@
 					<div class="total_numbers">{{Snapshot.Tent}}</div>
 					<div class='total_type'>Tent</div>
 				</div>
+			</div>
+		</div>
+	</div>
+	<div class="dollar_totals ym-wrapper">
+		<div class="ym-grid">
+			<div class="ym-gl ym-g50">
+				<div class='dollar_header'>Cash Total:</div>
+				<div class='dollar_amount'>{{totalCash}}</div>
+			</div>
+			<div class="ym-gl ym-g50">
+				<div class='dollar_header'>EFTPOS Total:</div>
+				<div class='dollar_amount'>{{totalEftpos}}</div>
 			</div>
 		</div>
 	</div>
@@ -308,12 +97,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="Arrival in Bookings | filter:{'bookingType':'Reservation'}" ng-click="Snapshot.loadBooking(Arrival.bookingId)">
-					<td>{{Arrival.spotType}}</td>
+				<tr ng-repeat="Arrival in bookingsList | filter:{'booking_type':'Reservation'}" ng-click="Snapshot.loadBooking(Arrival.id)">
+					<td>{{Arrival.booking_type}}</td>
 					<td>{{Arrival.name}}</td>
 					<td>{{Arrival.type}}</td>
-					<td>{{Arrival.numberPeople}}</td>
-					<td>{{Arrival.phoneNumber}}</td>
+					<td>{{Arrival.number_people}}</td>
+					<td>{{Arrival.phone_number}}</td>
 					<td>{{Arrival.notes}}</td>
 				</tr>
 			</tbody>
@@ -324,27 +113,27 @@
 		<table class='in_house_table table table-condensed table-striped table-hover'>
 			<thead>
 				<tr>
-					<td><a ng-click='Snapshot.chgInHouseSort("spotNumber")' href='javascript:;'>Site #</a></td>
-					<td><a ng-click='Snapshot.chgInHouseSort("spotType")' href='javascript:;'>Spot Type</a></td>
-					<td><a ng-click='Snapshot.chgInHouseSort("name")' href='javascript:;'>Name</a></td>
-					<td><a ng-click='Snapshot.chgInHouseSort("type")' href='javascript:;'>Vehicle</a></td>
-					<td><a ng-click='Snapshot.chgInHouseSort("registration")' href='javascript:;'>Rego</a></td>
-					<td><a ng-click='Snapshot.chgInHouseSort("numberPeople")' href='javascript:;'># People</a></td>
-					<td><a ng-click='Snapshot.chgInHouseSort("numberNights")' href='javascript:;'># Nights</a></td>
-					<td><a ng-click='Snapshot.chgInHouseSort("checkOutDate")' href='javascript:;'>Check Out</a></td>
-					<td><a ng-click='Snapshot.chgInHouseSort("notes")' href='javascript:;'>Notes</a></td>
+					<td><a ng-click='sortInHouse("currentSpot")' href='javascript:;'>Site #</a></td>
+					<td><a ng-click='sortInHouse("spot_type")' href='javascript:;'>Spot Type</a></td>
+					<td><a ng-click='sortInHouse("name")' href='javascript:;'>Name</a></td>
+					<td><a ng-click='sortInHouse("type")' href='javascript:;'>Vehicle</a></td>
+					<td><a ng-click='sortInHouse("registration")' href='javascript:;'>Rego</a></td>
+					<td><a ng-click='sortInHouse("number_people")' href='javascript:;'># People</a></td>
+					<td><a ng-click='sortInHouse("number_nights")' href='javascript:;'># Nights</a></td>
+					<td><a ng-click='sortInHouse("check_out_date")' href='javascript:;'>Check Out</a></td>
+					<td><a ng-click='sortInHouse("notes")' href='javascript:;'>Notes</a></td>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="InHouse in Bookings | filter:{'bookingType':'Booking'} | filter:Snapshot.InHouseSort.searchText | orderBy:Snapshot.InHouseSort.value : Snapshot.InHouseSort.reverse" ng-click="Snapshot.loadBooking(InHouse.bookingId)" ng-class='{unpaid:!InHouse.isPaid}'>
-					<td>{{InHouse.spotNumber}}</td>
-					<td>{{InHouse.spotType}}</td>
+				<tr ng-repeat="InHouse in bookingsList | filter:{'booking_type':'Booking'} | filter:Snapshot.InHouseSort.searchText | orderBy:sortValue : sortAsc" ng-click="editBooking(InHouse.id)" ng-class='{unpaid:!InHouse.is_paid}'>
+					<td>{{InHouse.currentSpot}}</td>
+					<td>{{InHouse.spot_type}}</td>
 					<td>{{InHouse.name}}</td>
 					<td>{{InHouse.type}}</td>
 					<td>{{InHouse.registration}}</td>
-					<td>{{InHouse.numberPeople}}</td>
-					<td>{{InHouse.numberNights}}</td>
-					<td>{{InHouse.checkOutDate | date:'MM/dd/yyyy'}}</td>
+					<td>{{InHouse.number_people}}</td>
+					<td>{{InHouse.number_nights}}</td>
+					<td>{{InHouse.check_out_date | date:'MM/dd/yyyy'}}</td>
 					<td>{{InHouse.notes}}</td>
 				</tr>
 			</tbody>
@@ -353,15 +142,15 @@
 	<div class='weekly_view_wrapper ym-wrapper'>
 		<div class='weekly_view_header'>Weekly View</div>
 		<div class='snapshot_wdate_wrapper ym-wrapper'>
-			<button type='button' class='snapshot_date_selector btn' ng-click='Snapshot.previousWDay()'>&laquo;</button>
-			<input class='view_date' ng-change="getWeeklyBookings()" class='current_date snapshot_date_selector' ng-model='Snapshot.WeeklyDate'>
-			<button class='snapshot_date_selector btn' ng-click='Snapshot.nextWDay()'>&raquo;</button>
+			<button type='button' class='snapshot_date_selector btn' ng-click='adjustWeekDate("backward")'>&laquo;</button>
+			<input class='view_date' ng-change="getWeeklyBookings()" class='current_date snapshot_date_selector' ng-model='weeklyDate'>
+			<button class='snapshot_date_selector btn' ng-click='adjustWeekDate("forward")'>&raquo;</button>
 		</div>
 		<table class='table'>
 			<thead>
 				<tr>
 					<td>&nbsp;</td>
-					<td ng-repeat="Day in Snapshot.WeeklyAvailability">{{Day.date}}</td>
+					<td ng-repeat="Day in weeklyGrid">{{Day.date}}</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -370,7 +159,7 @@
 						<div>Parkable</div>
 						<div>Tent</div>
 					</td>
-					<td ng-repeat="Day in Snapshot.WeeklyAvailability">
+					<td ng-repeat="Day in weeklyGrid">
 						<div>{{Day.parkable}}</div>
 						<div>{{Day.tent}}</div>
 					</td>
@@ -380,5 +169,7 @@
 	</div>
 </div>
 <script>
-$('#check_in,#check_out,.view_date').datepicker();
+$(document).ready(function() {
+	$('.view_date').datepicker();
+});
 </script>

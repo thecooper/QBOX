@@ -1,0 +1,206 @@
+<div class='background_shadow' ng-click="closeEdit()"></div>
+
+<div class='spotgrid' ng-model="booking" ng-show="editSpots"/>
+<div class='booking_view_wrapper' ng-init="setFormText()">
+	<div class='ym-grid'>
+		<div class='ym-gl ym-g25'>
+			<div class='booking_view_title'>{{header}}</div>
+		</div>
+		<div class='ym-gl ym-g25'>
+			<div class='ym-gl ym-g50 booking_spot_number' ng-show='booking.spotNumber != null'>
+				<span>Spot # {{booking.spotNumber}}</span>
+			</div>
+			<div class='ym-gr ym-g50'>
+				<div class='booking_options'>
+					<div class="btn-group">
+					  <a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+					    <i class='glyphicon glyphicon-cog'></i>
+					    <!-- <span class="caret"></span> -->
+					  </a>
+					  <ul class="dropdown-menu">
+					    <li><a href='javascript:;' ng-click="toggleSpotEdit()">Change Spot</a></li>
+					    <li><a href='javascript:;'>Copy Booking</a></li>
+					    <li><a href='javascript:;' ng-click='cancelBooking()'>Cancel Booking</a></li>
+					  </ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='booking_view_exit'>
+		<button class="close" ng-click="closeEdit()">&times;</button>
+	</div>
+
+	<div class='ym-grid'>
+		<div class="ym-gl ym-g50">
+			<section class='ym-grid booking_view_row'>
+				<div class='ym-gl ym-g50 ym-gbox'>
+					<label for='booking_type'>Booking Type</label>
+					<input type='text' ng-model="booking.booking_type" class='form-control' id='booking_type' disabled/>
+				</div>
+				<div class='ym-gr ym-g50 ym-gbox'>
+					<label for='spot_type'>Spot Type</label>
+					<select tabindex="2" ng-model="booking.spot_type" ng-change="booking.calculateDollarAmounts()" id='spot_type' class='form-control'>
+						<option>Powered</option>
+						<option>Unpowered</option>
+						<option>Tent</option>
+					</select>
+				</div>
+			</section>
+			<section class='ym-grid booking_view_row'>
+				<div class='ym-gl ym-g50 ym-gbox'>
+					<label for='booking_name'>Name</label>
+					<input type='text' tabindex="1" ng-model="booking.name" id='booking_name' class='form-control'/>
+				</div>
+				<div class='ym-gr ym-g50 ym-gbox' ng-hide='booking.booking_type == "Reservation" || booking.booking_type == "New Reservation"'>
+					<label for='spot_country'>Country</label>
+					<select tabindex="3" id='spot_country' ng-model="booking.country" class='form-control'>
+						<option>Afghanistan</option><option>Albania</option><option>Algeria</option><option>Andorra</option><option>Angola</option><option>Antigua & Deps</option><option>Argentina</option><option>Armenia</option><option>Australia</option><option>Austria</option><option>Azerbaijan</option><option>Bahamas</option><option>Bahrain</option><option>Bangladesh</option><option>Barbados</option><option>Belarus</option><option>Belgium</option><option>Belize</option><option>Benin</option><option>Bhutan</option><option>Bolivia</option><option>Bosnia Herzegovina</option><option>Botswana</option><option>Brazil</option><option>Brunei</option><option>Bulgaria</option><option>Burkina</option><option>Burma</option><option>Burundi</option><option>Cambodia</option><option>Cameroon</option><option>Canada</option><option>Cape Verde</option><option>Central African Rep</option><option>Chad</option><option>Chile</option><option>People's Republic of China</option><option>Republic of China</option><option>Colombia</option><option>Comoros</option><option>Democratic Republic of the Congo</option><option>Republic of the Congo</option><option>Costa Rica</option><option>Croatia</option><option>Cuba</option><option>Cyprus</option><option>Czech Republic</option><option>Danzig</option><option>Denmark</option><option>Djibouti</option><option>Dominica</option><option>Dominican Republic</option><option>East Timor</option><option>Ecuador</option><option>Egypt</option><option>El Salvador</option><option>Equatorial Guinea</option><option>Eritrea</option><option>Estonia</option><option>Ethiopia</option><option>Fiji</option><option>Finland</option><option>France</option><option>Gabon</option><option>Gaza Strip</option><option>The Gambia</option><option>Georgia</option><option>Germany</option><option>Ghana</option><option>Greece</option><option>Grenada</option><option>Guatemala</option><option>Guinea</option><option>Guinea-Bissau</option><option>Guyana</option><option>Haiti</option><option>Holy Roman Empire</option><option>Honduras</option><option>Hungary</option><option>Iceland</option><option>India</option><option>Indonesia</option><option>Iran</option><option>Iraq</option><option>Republic of Ireland</option><option>Israel</option><option>Italy</option><option>Ivory Coast</option><option>Jamaica</option><option>Japan</option><option>Jonathanland</option><option>Jordan</option><option>Kazakhstan</option><option>Kenya</option><option>Kiribati</option><option>North Korea</option><option>South Korea</option><option>Kosovo</option><option>Kuwait</option><option>Kyrgyzstan</option><option>Laos</option><option>Latvia</option><option>Lebanon</option><option>Lesotho</option><option>Liberia</option><option>Libya</option><option>Liechtenstein</option><option>Lithuania</option><option>Luxembourg</option><option>Macedonia</option><option>Madagascar</option><option>Malawi</option><option>Malaysia</option><option>Maldives</option><option>Mali</option><option>Malta</option><option>Marshall Islands</option><option>Mauritania</option><option>Mauritius</option><option>Mexico</option><option>Micronesia</option><option>Moldova</option><option>Monaco</option><option>Mongolia</option><option>Montenegro</option><option>Morocco</option><option>Mount Athos</option><option>Mozambique</option><option>Namibia</option><option>Nauru</option><option>Nepal</option><option>Newfoundland</option><option>Netherlands</option><option>New Zealand</option><option>Nicaragua</option><option>Niger</option><option>Nigeria</option><option>Norway</option><option>Oman</option><option>Ottoman Empire</option><option>Pakistan</option><option>Palau</option><option>Panama</option><option>Papua New Guinea</option><option>Paraguay</option><option>Peru</option><option>Philippines</option><option>Poland</option><option>Portugal</option><option>Prussia</option><option>Qatar</option><option>Romania</option><option>Rome</option><option>Russian Federation</option><option>Rwanda</option><option>St Kitts & Nevis</option><option>St Lucia</option><option>Saint Vincent & the</option><option>Grenadines</option><option>Samoa</option><option>San Marino</option><option>Sao Tome & Principe</option><option>Saudi Arabia</option><option>Senegal</option><option>Serbia</option><option>Seychelles</option><option>Sierra Leone</option><option>Singapore</option><option>Slovakia</option><option>Slovenia</option><option>Solomon Islands</option><option>Somalia</option><option>South Africa</option><option>Spain</option><option>Sri Lanka</option><option>Sudan</option><option>Suriname</option><option>Swaziland</option><option>Sweden</option><option>Switzerland</option><option>Syria</option><option>Tajikistan</option><option>Tanzania</option><option>Thailand</option><option>Togo</option><option>Tonga</option><option>Trinidad & Tobago</option><option>Tunisia</option><option>Turkey</option><option>Turkmenistan</option><option>Tuvalu</option><option>Uganda</option><option>Ukraine</option><option>United Arab Emirates</option><option>United Kingdom</option><option>United States of America</option><option>Uruguay</option><option>Uzbekistan</option><option>Vanuatu</option><option>Vatican City</option><option>Venezuela</option><option>Vietnam</option><option>Yemen</option><option>Zambia</option><option>Zimbabwe</option>
+					</select>
+				</div>
+			</section>
+			<section class='booking_view_row'>
+				<div class='ym-grid'>
+					<div class='ym-gl ym-g50'>
+						<div class='ym-gl ym-g50 ym-gbox'>
+							<label for='num_people'># People</label>
+							<input tabindex="4" type='text' id='num_people' ng-change="nightNumberChanged()" ng-model='booking.number_people' class='form-control'/>
+						</div>
+						<div class='ym-gr ym-g50 ym-gbox'>
+							<label for='num_nights'># Nights</label>
+							<input tabindex="5" type='text' id='num_nights' ng-change='nightNumberChanged()' ng-model='booking.number_nights' class='form-control'/>
+						</div>
+					</div>
+					<div class='ym-gr ym-g50'>
+						<div class='ym-gl ym-g50 ym-gbox' ng-show='booking.chooseSpot'>
+						<label>
+							<span>Spot #</span>
+							<input tabindex="6" type='text' class='form-control' id='spotPreference' ng-model='booking.preferred_spot'/>
+						</label>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- CHECKIN/OUT -->
+			<section class='ym-grid booking_view_row'>
+				<div class='ym-gl ym-g40 ym-gbox'>
+					<label for='check_in'>Check In</label>
+					<input type='text' id='check_in' ng-change="dateChanged()" ng-model='booking.check_in_date' class='form-control'/>
+				</div>
+				<div class='ym-gl ym-g20 ym-gbox'>
+					<hr/>
+				</div>
+				<div class='ym-gr ym-g40 ym-gbox'>
+					<label for='check_out'>Check Out</label>
+					<input type='text' id='check_out' ng-change="dateChanged()" ng-model='booking.check_out_date'  ng-change='updateNumberNights()' class='form-control'/>
+				</div>
+			</section>
+			<!--VEHICLE/REGO-->
+			<section class='ym-grid booking_view_row' ng-hide='booking.spot_type == "Tent" || booking.booking_type == "Reservation" || booking.booking_type == "New Reservation"'>
+				<div class='ym-gl ym-g50 ym-gbox'>
+					<label for='vehicle'>Vehicle</label>
+					<input type='text' id='vehicle' tabindex="7" ng-model="booking.type" class='form-control'/>
+				</div>
+				<div class='ym-gr ym-g50 ym-gbox'>
+					<label for='registration'>Registration</label>
+					<input type='text' id='registration' tabindex="8" ng-change='booking.regoChange()' ng-model='booking.registration' class='form-control'/>
+				</div>
+			</section>
+			<!--PHONE/EMAIL-->
+			<section class='ym-grid booking_view_row'>
+				<div class='ym-gl ym-g50 ym-gbox'>
+					<label for='phone'>Phone</label>
+					<input type='text' id='phone' tabindex="9" ng-model="booking.phone_number" class='form-control'/>
+				</div>
+				<div class='ym-gr ym-g50 ym-gbox'>
+					<label for='email'>Email</label>
+					<input type='text' id='email' tabindex="10" ng-model="booking.email" class='form-control'/>
+				</div>
+			</section>
+		</div>
+		<div class="ym-gr ym-g50">
+			<!--DOLLAR TOTALS-->
+			<section class='booking_dollar_wrapper' ng-hide="booking.booking_type == 'New Reservation' || booking.booking_type == 'Reservation'">
+				<div class="ym-grid booking_view_row" ng-hide="booking.is_paid">
+					<div class='ym-gl ym-g25 ym-gbox' ng-hide="booking.is_weekly">
+						<div class='booking_dollar_per_night'>${{booking.amount_per_night}}</div>
+						<div class='booking_dollar_type'>Per Nights</div>
+					</div>
+					<div class='ym-gl ym-g25 ym-gbox'>
+						<div class='booking_dollar_total'>${{booking.amount_total}}</div>
+						<div class='booking_dollar_type'>Total Owed</div>
+					</div>
+					<div class='ym-gl ym-g25 ym-gbox'>
+						<div class='booking_dollar_collected'>${{booking.amount_paid}}</div>
+						<div class='booking_dollar_type'>Collected</div>
+					</div>
+					<div class='ym-gr ym-g25 ym-gbox' ng-hide="booking.is_weekly">
+						<div class='booking_dollar_owed'>${{booking.amount_owed}}</div>
+						<div class='booking_dollar_type'>For Tonight</div>
+					</div>
+				</div>
+				<div class='booking_paid_wrapper alert alert-success' ng-show="booking.is_paid">Paid!</div>
+				<div class='booking_weekly_wrapper'>
+					<label>
+						<span>Staying for a week</span>
+						<input type='checkbox' class=''  tabindex="11" ng-click='booking.toggleWeeklyStay()'/>
+					</label>
+				</div>
+				<div class='booking_payment_history booking_view_row' ng-show="booking.payments.length > 0">
+					<table class='table table-condensed table-striped'>
+						<thead>
+							<tr>
+								<td>Payment Type</td>
+								<td>Payment Amount</td>
+								<td></td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="payment in booking.payments | orderBy:'timestamp':true">
+								<td><span ng-hide='payment.editing==true'>{{payment.payment_type}}</span><select class="form-control" ng-show='payment.editing==true' ng-model='payment.payment_type'><option>cash</option><option>eftpos</option></td>
+								<td><span>{{payment.payment_amount}}</span></td>
+								<td>
+									<i class='glyphicon glyphicon-pencil' ng-click='payment.editing=true' ng-hide='payment.editing==true'></i>
+									<i class='glyphicon glyphicon-trash' ng-click='deletePayment(payment.id,$index)' ng-hide='payment.editing==true'></i>
+									<i class='glyphicon glyphicon-ok' ng-click='payment.editing=false' ng-show='payment.editing==true'></i>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class='booking_payment_wrapper booking_view_row'>
+					<div class='booking_amount_wrapper'>
+						<input class="form-control" tabindex="12" ng-model="paymentAmount" type="text" placeholder="Amount">
+					</div>
+					<div>{{paymentType}}</div>
+					<div class='booking_payment_type'>
+						<span>Payment Type:</span>
+						<label for="cash">
+							<input type='radio' ng-model="paymentType" tabindex="13" value='cash' name='paymentType' id='cash'/>
+							Cash
+						</label>
+						<label for="eftpos">
+							<input type='radio' ng-model="paymentType" value='eftpos' name='paymentType' id='eftpos'/>
+							EFTPOS
+						</label>
+					</div>
+					<div class='booking_payment_button booking_payment_row'>
+						<button type='button' tabindex="14" ng-click="addPayment()" class='btn btn-success btn-large'>Add Payment</button>
+					</div>
+				</div>
+			</section>
+			<!--Divider-->
+			<div class='divider'></div>
+			<!--Notes-->
+			<section class='booking_view_row'>
+				<label for="notes">Notes</label>
+				<textarea id="notes" tabindex="15" ng-model="booking.notes" class="form-control"></textarea>
+			</section>
+		</div>
+	</div>
+	<section class='booking_view_row booking_view_buttons'>
+		<button type='button' class='btn btn-success btn-large' ng-click='' ng-show="booking.booking_type == 'Reservation'">Check In</button>
+		<button type='button' tabindex="16" class='btn btn-primary btn-large' ng-click='save()'>{{saveButtonText}}</button>
+		<button type='button' tabindex="17" class='btn btn-large' ng-click="closeEdit()">Cancel</button>
+	</section>
+</div>

@@ -1,0 +1,13 @@
+<div class='spot_control'>
+	<button class='btn btn-primary' ng-click="edit=false">Done</button>
+</div>
+<div class='day' ng-repeat="day in dates">
+	<div>{{day.date}}</div>
+	<div class='spot' ng-class='{occupied:spot.occupied && !spot.booked, booked:spot.booked}' ng-repeat="spot in day.spots">
+		<label ng-click="assignSpot($event,day.date,spot.number,spot.occupied,spot.id)">
+			<span>{{spot.number}}</span>
+			<input type='checkbox' class='' ng-checked='spot.booked !== undefined' value=''/>
+			<span>{{spot.type}}</span>
+		</label>
+	</div>
+</div>

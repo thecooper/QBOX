@@ -40,14 +40,18 @@ $(document).unbind('keydown').bind('keydown', function(event) {
 
 function formatDate(date) {
     var d;
-    if (typeof date == "Date") {
-        d = date;
-    } else if (isNaN(date)) {
-        //parse Date from string
-        d = new Date(Date.parse(date));
+    if(!date) {
+        d = new Date();
     } else {
-        //create Date object from timestamp
-        d = new Date(date);
+        if (typeof date == "Date") {
+            d = date;
+        } else if (isNaN(date)) {
+            //parse Date from string
+            d = new Date(Date.parse(date));
+        } else {
+            //create Date object from timestamp
+            d = new Date(date);
+        }
     }
     return (d.getMonth() + 1) + '/' + (d.getDate()) + '/' + (d.getFullYear());
 }
@@ -650,6 +654,8 @@ app.controller('SnapshotController', ['$scope', '$http', '$timeout', function($s
         if (BookingForm.CurrentBooking.bookingType == "Reservation" || BookingForm.CurrentBooking.bookingType == "New Reservation")
             return [];
 
+        var preferredSpot = BookingForm.CurrentBooking.preferredSpot == 0 ? (DatesAlreadyBooked.length > 0 ? DatesAlreadyBooked[DatesAlreadyBooked.length - 1].number : null) : BookingForm.CurrentBooking.preferredSpot;
+
         var AvailableSpot = function(number, occupiedDate, occupied) {
             this.number = number;
             this.occupiedDate = occupiedDate;
@@ -678,7 +684,9 @@ app.controller('SnapshotController', ['$scope', '$http', '$timeout', function($s
             });
         });
 
-        if (DatesNotYetBooked.length == 0) {
+        console.log(DatesNotYetBooked);
+        console.log(preferredSpot);
+        if (DatesNotYetBooked.length == 0 && preferredSpot === 0) {
             //if no new spots need to be allocated, then return the current spot array.
             return BookingForm.CurrentBooking.spots;
         }
@@ -691,7 +699,7 @@ app.controller('SnapshotController', ['$scope', '$http', '$timeout', function($s
         DatesNotYetBooked.forEach(function(day) {
             day.spots = totalSpots.filter(function(spot) {
                 return !spots.some(function(sp) {
-                    return Date.parse(sp.occupiedDate) == day.day && sp.number == spot.spotId;
+                    return Date.parse(sp.occupiedDate) == day.day && (sp.number == spot.spotId && sp.number !== preferredSpot);
                 });
             });
         });
@@ -702,7 +710,6 @@ app.controller('SnapshotController', ['$scope', '$http', '$timeout', function($s
 
         //set preferredSpot either to the spot specified in the interface, to the last value in the DatesAlreadyBooked array (so that the person doesn't have to move)
         //or to null, meaning that the customer is starting a new booking process.
-        var preferredSpot = BookingForm.CurrentBooking.preferredSpot == 0 ? (DatesAlreadyBooked.length > 0 ? DatesAlreadyBooked[DatesAlreadyBooked.length - 1].number : null) : BookingForm.CurrentBooking.preferredSpot;
         var filledArr = fillSpots(DatesNotYetBooked, preferredSpot);
         if (filledArr === false) {
             return false;
