@@ -59,6 +59,13 @@ angular.module('bookingModule')
 					$scope.booking.calculateDollarAmounts();
 				};
 
+				$scope.copyBooking = function() {
+					$scope.booking = new Booking($scope.booking);
+					$scope.booking.id = null;
+					$scope.booking.payments = [];
+					$scope.booking.spots = [];
+				}
+
 				$scope.deletePayment = function(id,index) {
 					if(id) {
 						payment.delete(id,function(message) {
@@ -83,16 +90,18 @@ angular.module('bookingModule')
 					$scope.paymentAmount = null;
 				};
 				$scope.save = function() {
-					if ($scope.booking.spots.length < $scope.booking.number_nights) {
-						$scope.editSpots = true;
-					} else {
-						booking.save($scope.booking,function(result){
-							if(result.message === "Saved") {
-								alert("Saved!!");
-								$scope.isOpen = false;
-								$scope.$emit("booking_updated");
-							}
-						});
+					if($scope.booking.booking_type != "Reservation" || $scope.booking.booking_type != "New Reservation") {
+						if ($scope.booking.spots.length < $scope.booking.number_nights) {
+							$scope.editSpots = true;
+						} else {
+							booking.save($scope.booking,function(result){
+								if(result.message === "Saved") {
+									alert("Saved!!");
+									$scope.isOpen = false;
+									$scope.$emit("booking_updated");
+								}
+							});
+						}
 					}
 				}
 

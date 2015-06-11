@@ -84,7 +84,12 @@ class BookingController extends AppController {
         $spots = $booking["spots"];
         unset($booking["payments"]);
         unset($booking["spots"]);
-        $booking['booking_type'] = "Booking";
+
+        if($booking['booking_type'] == "New Booking")
+            $booking['booking_type'] = "Booking";
+        else if($booking['booking_type'] == "New Reservation")
+            $booking['booking_type'] = "Reservation";
+
         $booking['check_in_date'] = BookingController::inbound_date_format($booking['check_in_date']);
         $booking['check_out_date'] = BookingController::inbound_date_format($booking['check_out_date']);
         foreach($payments as &$payment) {

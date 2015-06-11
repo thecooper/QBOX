@@ -19,7 +19,7 @@
 					  </a>
 					  <ul class="dropdown-menu">
 					    <li><a href='javascript:;' ng-click="toggleSpotEdit()">Change Spot</a></li>
-					    <li><a href='javascript:;'>Copy Booking</a></li>
+					    <li><a href='javascript:;' ng-click="copyBooking()">Copy Booking</a></li>
 					    <li><a href='javascript:;' ng-click='cancelBooking()'>Cancel Booking</a></li>
 					  </ul>
 					</div>
@@ -199,7 +199,7 @@
 		</div>
 	</div>
 	<section class='booking_view_row booking_view_buttons'>
-		<button type='button' class='btn btn-success btn-large' ng-click='' ng-show="booking.booking_type == 'Reservation'">Check In</button>
+		<button type='button' class='btn btn-success btn-large' ng-click='booking.booking_type = "New Booking"' ng-show="booking.booking_type == 'Reservation'">Check In</button>
 		<button type='button' tabindex="16" class='btn btn-primary btn-large' ng-click='save()'>{{saveButtonText}}</button>
 		<button type='button' tabindex="17" class='btn btn-large' ng-click="closeEdit()">Cancel</button>
 	</section>

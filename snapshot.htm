@@ -83,7 +83,7 @@
 		</div>
 	</div>
 	<div class='divider'></div>
-	<div class='arrivals_wrapper ym-wrapper' ng-show='Snapshot.areReservations'>
+	<div class='arrivals_wrapper ym-wrapper'>
 		<div class='arrivals_header'>Arrivals</div>
 		<table class='arrivals_table table table-condensed table-striped table-hover'>
 			<thead>
@@ -97,7 +97,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="Arrival in bookingsList | filter:{'booking_type':'Reservation'}" ng-click="Snapshot.loadBooking(Arrival.id)">
+				<tr ng-repeat="Arrival in bookingsList | filter:{'booking_type':'Reservation'}" ng-click="editBooking(Arrival.id)">
 					<td>{{Arrival.booking_type}}</td>
 					<td>{{Arrival.name}}</td>
 					<td>{{Arrival.type}}</td>
